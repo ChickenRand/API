@@ -5,7 +5,6 @@ It's time to create a real website for this project. I choose to use the Ruby's 
 # Set up
 
 	bundle update
-	bower update
 	#Assuming user/pass is root
 	mysql --user=root --password=root
 	create database psi_rng;
