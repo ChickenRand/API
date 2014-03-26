@@ -10,6 +10,8 @@ It's time to create a real website for this project. I choose to use the Ruby's 
 	create database psi_rng;
 	exit;
 	sequel -m db/migrations mysql2://root:root@localhost/psi_rng
+	#Don't forget to change your database settings
+	cp config/database.rb.sample config/database.rb
 	rackup
 
 # Test
