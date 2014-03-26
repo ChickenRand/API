@@ -1,3 +1,3 @@
-require __DIR__('user')
-require __DIR__('queue')
-require __DIR__('results')
+require_relative 'user'
+require_relative 'queue'
+require_relative 'results'

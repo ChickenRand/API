@@ -10,4 +10,7 @@ It's time to create a real website for this project. I choose to use the Ruby's 
 	create database psi_rng;
 	exit;
 	sequel -m db/migrations mysql2://root:root@localhost/psi_rng
-	rake ramaze:start
+	rackup
+
+# Test
+	rspec

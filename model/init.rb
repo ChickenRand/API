@@ -1,4 +1,4 @@
-require __DIR__('user')
-require __DIR__('xp')
-require __DIR__('user_xp')
-require __DIR__('rng')
+require_relative 'user'
+require_relative 'xp'
+require_relative 'user_xp'
+require_relative 'rng'

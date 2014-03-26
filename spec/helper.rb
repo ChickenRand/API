@@ -15,6 +15,3 @@ RSpec.configure do |c|
   end
   c.filter_run_excluding :broken => true
 end
-
-Ramaze::Log.level   = Logger::ERROR
-Ramaze.options.mode = :spec
