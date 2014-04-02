@@ -10,6 +10,6 @@ class UserApi < Grape::API
   end
   post ':login' do
     puts "Sa marche"
-    cookies[:session] = "toot"
+    cookies[:session_token] = "toot"
   end
 end
