@@ -2,14 +2,13 @@ class UserApi < Grape::API
   prefix "user"
   format :json
   get ':id' do
-    test = params[:id]
+    id = params[:id]
     message = "User Not Found"
-    user = User[test]
+    user = User[id]
     error!(message, 405) if user.nil?
     user.values
   end
   post ':login' do
-    puts "Sa marche"
     cookies[:session_token] = "toot"
   end
 end
