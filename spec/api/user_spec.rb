@@ -22,10 +22,10 @@ describe UserApi do
   end
 
   it "login a user with a cookie" do
-  	credentials = {email: "test@test.com", password: "test"}
+  	credentials = {email: 'test@test.com', password: 'test'}
   	u = User.create(credentials)
-  	post("/user/login", credentials).status.should == 201
-  	last_response.cookies["session_token"].should != nil
+  	post('/user/login', credentials).status.should == 201
+  	rack_mock_session.cookie_jar['session_token'].should_not == nil
   end
 
   it "Create a user" do
