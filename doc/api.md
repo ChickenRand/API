@@ -33,6 +33,10 @@ Return current user informations
 Login a user, return the current user if successful
 return user token that is stored in DB and used by the user for every requests
 
+### POST /api/user/logout
+
+Delete the actual user token from DB and remove the cookie from the client
+
 ### GET /api/user/:id
 
 Return a specific user info
