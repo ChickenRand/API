@@ -18,9 +18,27 @@ describe UserApi do
   	get("/user/12356").status.should == 405
   end
 
-  it "login a user" do
+  it "login a user with a cookie" do
   	credentials = {email: "test@test.com", password: "test"}
   	u = User.create(credentials)
   	post("/user/login", credentials).status.should == 201
+  	last_response.cookies["session"].should != nil
+  end
+
+  it "Create a user" do
+  	data = {email: 'test@test.com', password: 'test', age: 25, laterality: 'left', believer: true, sex: 'F'}
+  	post("/user", data).status.should == 201
+  	# You can't create two users with the same email address
+  	post("/user", data).status.should == 400
+  	User.first(email:'test@test.com').age.should == 25
+  end
+
+  it "Modify a user" do
+  	credentials = {email: "test@test.com", password: "test"}
+  	u = User.create(credentials)
+	put("/user", {age: 19}).status.should == 201
+	User.first(email:'test@test.com').age.should == 19
+	put("/user", {age: 23}).status.should == 201
+	User.first(email:'test@test.com').age.should == 23	
   end
 end
