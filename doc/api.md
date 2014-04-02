@@ -53,6 +53,12 @@ Return a specific user info
 Create/modify a user
 Note : for the moment, the service is in private beta stage so we'll have a white list of emails that can register.
 
+### POST /api/user/invite
+
+{"test@test.com;test2@test.com"}
+
+Add all those users email to white list and send invitation. If email is already in white list just send an invitation.
+
 ## Api Queue
 
 ### GET /api/queue/state
@@ -88,4 +94,3 @@ Note : If we don't start the experiment within 30s, the queue item is automatica
 POST /api/results
 
 {xp_id: 123, music: "mozart", drug: ["coffee", "tabac"], raw_numbers: [255, 128, 65, 37...], alone: true, rng_id: 1, results : {one_zero_diff: [2, 45, -12, ..., 98]}}
-
