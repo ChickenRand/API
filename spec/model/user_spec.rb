@@ -3,7 +3,7 @@ require_relative "../helper"
 
 describe User do
 	it "Hashes passwords on creation and override ==" do
-		u = User.create(password:"test")
+		u = User.create(email: "test@test.com", password:"test")
 		u.password.to_s.should_not == "test"
 		u.password.should == "test"
 		u.password.is_password?("test").should == true
