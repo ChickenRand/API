@@ -67,6 +67,19 @@ describe UserApi do
   end
 
   it "Invite user and put them into the white list" do
-    post('/user/invite', ["test@test.com", "test2@test.com"]).status.should == 201
+    Pony.stub(:deliver)
+
+    post('/user/invite', {emails:"test@test.com,test2@test.com"}).status.should == 201
+    post('/user/invite', {emails:"test@test.com,test2@test.com"}).status.should == 201
+    WhiteList.first(email:"test@test.com").should_not == nil
+    WhiteList.first(email:"test2@test.com").should_not == nil
+    WhiteList.where(email:"test2@test.com").count.should == 1
+    expect(Pony).to receive(:deliver) do |mail|
+      puts "yoooo"
+      expect(mail.to).to eq [ 'test@test.com' ]
+      #expect(mail.from).to eq [ 'sender@example.com' ]
+      expect(mail.subject).to eq 'Invitation'
+      #expect(mail.body).to eq 'Hello, Joe.'
+    end
   end
 end

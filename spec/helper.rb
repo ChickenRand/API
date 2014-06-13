@@ -15,8 +15,12 @@ RSpec.configure do |c|
   c.filter_run_excluding :broken => true
 
   I18n.config.enforce_available_locales = true
-  
+
   c.expect_with :rspec do |c|
-    c.syntax = :should
+    c.syntax = [:expect, :should]
+  end
+
+  c.mock_with :rspec do |mocks|
+    mocks.syntax = :should
   end
 end

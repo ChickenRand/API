@@ -1,4 +1,7 @@
 #coding: utf-8
+
+require "pony"
+
 class UserApi < Grape::API
   helpers LoginHelpers
   prefix "user"
@@ -79,5 +82,17 @@ class UserApi < Grape::API
       end  
     end
     @current_user.save()
+  end
+
+  desc "Send an invitation and add email to white list.Emails are comma separated"
+  params do
+    requires :emails, type: String
+  end
+  post "/invite" do
+    params[:emails].split(',').each do |s|
+      s.strip!
+      WhiteList.create(email: s) if WhiteList.first(email: s).nil?
+      Pony.mail(:to => s, :from => 'admin@chickenrand.com', :subject => 'Invitation', :body => 'Hello, Joe.')
+    end
   end
 end
