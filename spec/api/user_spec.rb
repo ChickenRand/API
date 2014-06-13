@@ -65,4 +65,8 @@ describe UserApi do
     rack_mock_session.cookie_jar['session_token'].should == "deleted"
     User.first(email:'test@test.com').token.length.should == 0
   end
+
+  it "Invite user and put them into the white list" do
+    post('/user/invite', ["test@test.com", "test2@test.com"]).status.should == 201
+  end
 end
