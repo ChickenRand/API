@@ -13,4 +13,10 @@ RSpec.configure do |c|
     Sequel.transaction([DB], :rollback=>:always){example.run}
   end
   c.filter_run_excluding :broken => true
+
+  I18n.config.enforce_available_locales = true
+  
+  c.expect_with :rspec do |c|
+    c.syntax = :should
+  end
 end

@@ -25,13 +25,22 @@ class UserApi < Grape::API
     requires :email, type: String
     requires :password, type: String
   end
-  post ':login' do
+  post '/login' do
     u = User.first(email: params[:email])
     error!('User not found', 404) if u.nil? or u.password != params[:password]
     t = Token.create()
     cookies[:session_token] = t.token
     u.add_token(t)
     u.save
+  end
+
+  desc 'Logout a user, delete cookies and token.'
+  post '/logout' do
+    authenticate!
+    t = Token.first(token: cookies[:session_token])
+    cookies.delete :session_token
+    @current_user.remove_token(t)
+    t.delete
   end
 
   desc 'Create a new user.'

@@ -8,6 +8,16 @@ describe UserApi do
   	UserApi
   end
 
+  after :each do 
+    puts JSON.parse(last_response.body)["error"] if @test
+  end 
+
+  def login
+    credentials = {email: 'test@test.com', password: 'test'}
+    u = User.create(credentials)
+    post('/user/login', credentials).status.should == 201
+  end
+
   it "Returns a specific user" do
   	u = User.create({email: 'test@test.com', password: 'test'})
   	get("/user/#{u.id}").status.should == 200
@@ -22,10 +32,8 @@ describe UserApi do
   end
 
   it "login a user with a cookie" do
-  	credentials = {email: 'test@test.com', password: 'test'}
-  	u = User.create(credentials)
-  	post('/user/login', credentials).status.should == 201
-  	rack_mock_session.cookie_jar['session_token'].should_not == nil
+    login()
+    rack_mock_session.cookie_jar['session_token'].should_not == nil
     post('/user/login', {toto: "toto"}).status.should == 400
     post('/user/login', {email: 'toto', password: 'toto'}).status.should == 404
   end
@@ -52,6 +60,9 @@ describe UserApi do
   end
 
   it "logout a user" do
-
+    login()
+    post("/user/logout").status.should == 201
+    rack_mock_session.cookie_jar['session_token'].should == "deleted"
+    User.first(email:'test@test.com').token.length.should == 0
   end
 end
