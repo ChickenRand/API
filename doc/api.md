@@ -94,3 +94,9 @@ Note : If we don't start the experiment within 30s, the queue item is automatica
 POST /api/results
 
 {xp_id: 123, music: "mozart", drug: ["coffee", "tabac"], raw_numbers: [255, 128, 65, 37...], alone: true, rng_id: 1, results : {one_zero_diff: [2, 45, -12, ..., 98]}}
+
+## Api XP
+
+GET /api/xp
+
+return {id: 1, name: "doodle jump", estimated_time: 150}
