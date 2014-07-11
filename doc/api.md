@@ -67,7 +67,7 @@ return {estimated_time: 500, queue_length: 3}
 
 ### GET /api/queue/:id
 
-return {id: 3, estimated_time: 500, ready: false}
+return {id: 3, estimated_time: 500, xp_id: 123, ready: false}
 
 Note : used to tell the server we are still waiting. If not called every 30s the queue item is automatically remove.
 

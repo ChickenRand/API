@@ -24,3 +24,9 @@ RSpec.configure do |c|
     mocks.syntax = :should
   end
 end
+
+def login
+  credentials = {email: 'test@test.com', password: 'test'}
+  u = User.create(credentials)
+  post('/user/login', credentials).status.should == 201
+end

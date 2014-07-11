@@ -10,12 +10,6 @@ describe UserApi do
 
   after :each do 
     puts JSON.parse(last_response.body)["error"] if @test
-  end 
-
-  def login
-    credentials = {email: 'test@test.com', password: 'test'}
-    u = User.create(credentials)
-    post('/user/login', credentials).status.should == 201
   end
 
   it "Returns a specific user" do

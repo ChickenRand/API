@@ -6,7 +6,7 @@ class UserApi < Grape::API
   helpers LoginHelpers
   prefix "user"
   format :json
-  #content_type :json, "application/json; charset=utf-8"
+  content_type :json, "application/json; charset=utf-8"
   default_error_formatter :json
   default_error_status 400
 
