@@ -10,4 +10,8 @@ class ResultsApi < Grape::API
   # Va renvoyer le message d'erreur au format json
   # avec le default error status
   rescue_from :all
+
+  post do
+    
+  end
 end

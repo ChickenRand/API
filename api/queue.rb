@@ -13,7 +13,7 @@ class QueueApi < Grape::API
 
   desc "return the current queue state"
   get '/state' do
-    {estimated_time: 0, length: 0}
+    Queue::get_state()
   end
 
   desc "add a user to the queue with a specific xp"
@@ -22,5 +22,25 @@ class QueueApi < Grape::API
   end
   post do
     authenticate!
+    Queue::add_to_queue(params[:xp_id])
+  end
+
+  desc "Used to tell the server we are still waiting. If not called every 30s the queue item is automatically remove."
+  get ':id' do
+    authenticate!
+    Queue::update_queue_item(params[:id])
+  end
+
+  delete ':id' do
+    authenticate!
+    Queue::remove_from_queue(params[:id])
+  end
+
+  desc "Tell the server that we start the experiment."
+  post ':id/start' do
+    authenticate!
+    item = Queue::start_experiment(params[:id])
+    error!('Item not on top') if item.nil?
+    Rng.first
   end
 end
