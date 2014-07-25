@@ -30,7 +30,7 @@ class Queue
 
   def self.add_to_queue(xp_id)
     id = @@last_id
-    @@list.push({id: id, xp_id: xp_id, start: false)
+    @@list.push({id: id, xp_id: xp_id, start: false})
     @@last_id = @@last_id + 1
     return id
   end
