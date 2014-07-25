@@ -8,6 +8,12 @@ describe UserApi do
   	UserApi
   end
 
+  def login
+    credentials = {email: 'test@test.com', password: 'test'}
+    u = User.create(credentials)
+    post('/user/login', credentials).status.should == 201
+  end
+
   after :each do 
     puts JSON.parse(last_response.body)["error"] if @test
   end
@@ -68,12 +74,12 @@ describe UserApi do
     WhiteList.first(email:"test@test.com").should_not == nil
     WhiteList.first(email:"test2@test.com").should_not == nil
     WhiteList.where(email:"test2@test.com").count.should == 1
-    expect(Pony).to receive(:deliver) do |mail|
-      puts "yoooo"
-      expect(mail.to).to eq [ 'test@test.com' ]
-      #expect(mail.from).to eq [ 'sender@example.com' ]
-      expect(mail.subject).to eq 'Invitation'
-      #expect(mail.body).to eq 'Hello, Joe.'
-    end
+    # expect(Pony).to receive(:deliver) do |mail|
+    #   puts "yoooo"
+    #   expect(mail.to).to eq [ 'test@test.com' ]
+    #   #expect(mail.from).to eq [ 'sender@example.com' ]
+    #   expect(mail.subject).to eq 'Invitation'
+    #   #expect(mail.body).to eq 'Hello, Joe.'
+    # end
   end
 end

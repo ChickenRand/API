@@ -24,8 +24,9 @@ class Queue
   end
 
   def self.get_state
-    state = {queue_length: @@list.length}
+    state = {length: @@list.length}
     state[:estimated_time] = self.get_estimated_time()
+    return state
   end
 
   def self.add_to_queue(xp_id)

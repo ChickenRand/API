@@ -23,7 +23,7 @@ describe QueueApi do
     xp = Xp.first
     #user need to be logged in
     post('/queue', {xp_id: xp.id}).status.should == 401
-    login()
+    fake_login()
     post('/queue', {xp_id: xp.id}).status.should == 201
     #return GET /api/queue/:id
   end

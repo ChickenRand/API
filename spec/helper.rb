@@ -25,8 +25,11 @@ RSpec.configure do |c|
   end
 end
 
-def login
-  credentials = {email: 'test@test.com', password: 'test'}
-  u = User.create(credentials)
-  post('/user/login', credentials).status.should == 201
+def fake_login()
+    credentials = {email: 'test@test.com', password: 'test'}
+    u = User.create(credentials)
+    t = Token.create()
+    rack_mock_session.cookie_jar['session_token'] = t.token
+    u.add_token(t)
+    u.save
 end
