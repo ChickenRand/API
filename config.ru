@@ -9,7 +9,11 @@ timeout = Thread.new do
 end
 
 main = Thread.new do
-  run Rack::Cascade.new [UserApi, QueueApi, ResultsApi]
+  run Rack::Cascade.new [UserApi, QueueApi, ResultsApi, XpApi]
+  # Root maps to the documentation of the other apis
+  map "/" do
+    run Root
+  end
 end
 
 main.join
