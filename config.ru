@@ -4,15 +4,19 @@ require './app'
 timeout = Thread.new do
   while true
     Queue::check_inactive_items()
-    sleep SEC_BETWEEN_QUEUE_CHECK
+    sleep Configuration::SEC_BETWEEN_QUEUE_CHECK
   end
 end
 
 main = Thread.new do
-  run Rack::Cascade.new [UserApi, QueueApi, ResultsApi, XpApi]
   # Root maps to the documentation of the other apis
-  map "/" do
+  map "/api" do
+    #run Rack::Cascade.new [UserApi, QueueApi, ResultsApi, XpApi]
     run Root
+  end
+
+  map "/" do
+    run Rack::File.new("./public")
   end
 end
 

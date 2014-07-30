@@ -13,7 +13,8 @@ describe XpApi do
   end
 
   it "return all XP's" do
+    Xp.create(name: "test")
     get("/xp").status.should == 200
-    JSON.parse(last_response.body)[0]['name'].should == "Doodle Jump"
+    JSON.parse(last_response.body)[-1]['name'].should == "test"
   end
 end

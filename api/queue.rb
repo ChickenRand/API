@@ -1,5 +1,6 @@
 class QueueApi < Grape::API
   helpers LoginHelpers
+
   prefix "queue"
   format :json
   content_type :json, "application/json; charset=utf-8"

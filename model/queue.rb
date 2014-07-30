@@ -10,13 +10,13 @@ class Queue
       item = @@list[index]
       if item[:start]
         current_time = Time.now - item[:start_time]
-        if current_time > Xp[item.xp_id].estimated_time
+        if current_time > Xp[item[:xp_id]].estimated_time
           estimated_time += current_time
         else
-          estimated_time += Xp[item.xp_id].estimated_time - current_time
+          estimated_time += Xp[item[:xp_id]].estimated_time - current_time
         end
       else
-        estimated_time += Xp[item.xp_id].estimated_time
+        estimated_time += Xp[item[:xp_id]].estimated_time
       end
       break if item_id == index
     end
@@ -31,9 +31,10 @@ class Queue
 
   def self.add_to_queue(xp_id)
     id = @@last_id
-    @@list.push({id: id, xp_id: xp_id, start: false})
+    item = {id: id, xp_id: xp_id, start: false}
+    @@list.push(item)
     @@last_id = @@last_id + 1
-    return id
+    return item
   end
 
   def self.get_queue_item(item_id)

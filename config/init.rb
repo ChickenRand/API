@@ -1,3 +1,3 @@
 # Require settings
 require_relative 'database'
-require_relative 'queue'
+require_relative 'configuration'
