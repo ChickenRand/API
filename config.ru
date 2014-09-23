@@ -16,7 +16,7 @@ main = Thread.new do
   end
 
   map "/" do
-    run Rack::File.new("./public")
+    run Rack::File.new("./public/dist")
   end
 end
 

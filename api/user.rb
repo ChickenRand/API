@@ -14,7 +14,7 @@ class UserApi < Grape::API
   # Va renvoyer le message d'erreur au format json
   # avec le default error status
   rescue_from :all
-  
+
   get ':id' do
     id = params[:id]
     message = "User Not Found"
@@ -35,6 +35,7 @@ class UserApi < Grape::API
     cookies[:session_token] = t.token
     u.add_token(t)
     u.save
+    u.values
   end
 
   desc 'Logout a user, delete cookies and token.'
@@ -79,7 +80,7 @@ class UserApi < Grape::API
     declared(params, include_missing: false).each do |k,v|
       if @current_user.respond_to?(k.to_sym)
         @current_user.set(k.to_sym => v)
-      end  
+      end
     end
     @current_user.save()
   end
