@@ -57,7 +57,7 @@ class UserApi < Grape::API
     optional :sex, type: String
   end
   post do
-    User.create do |u|
+    u = User.create do |u|
       u.email = params[:email]
       u.password = params[:password]
       u.age = params[:age]
@@ -65,6 +65,7 @@ class UserApi < Grape::API
       u.believer = params[:believer]
       u.sex = params[:sex]
     end
+    u.values
   end
 
   desc 'Modify a user.'
